@@ -164,12 +164,10 @@ export default function Home() {
           </a>
         </div>
         <div className="developer-info">
-          <p>Developed by Tharun K<a href="https://www.linkedin.com/in/tharun-kubendiran-594004286/" 
+          <p>Developed by <a href="https://www.linkedin.com/in/tharun-kubendiran-594004286/" 
                              target="_blank" 
                              rel="noopener noreferrer"
-                             aria-label="LinkedIn"
-                             className="social-link">
-                              <FontAwesomeIcon icon={faLinkedin} /></a></p>
+                            >Tharun K</a></p>
         </div>
       </footer>
     </main>
