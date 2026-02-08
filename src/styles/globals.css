@@ -464,16 +464,16 @@ section {
   cursor: grabbing;
 }
 
-/* Stack Cards - Just Images */
+/* Stack Cards - Horizontal Rectangle Format */
 .flick-stack-card {
   position: absolute;
   left: 50%;
   top: 50%;
   transform-origin: center center;
-  width: 450px;
-  height: 500px;
-  margin-left: -225px;
-  margin-top: -250px;
+  width: 700px;
+  height: 450px;
+  margin-left: -350px;
+  margin-top: -225px;
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform, opacity;
   border-radius: 20px;
@@ -608,10 +608,10 @@ section {
 /* TABLET RESPONSIVE */
 @media (max-width: 1024px) {
   .flick-stack-card {
-    width: 400px;
-    height: 450px;
-    margin-left: -200px;
-    margin-top: -225px;
+    width: 600px;
+    height: 400px;
+    margin-left: -300px;
+    margin-top: -200px;
   }
 
   .flicking-stack-container {
@@ -626,14 +626,14 @@ section {
   }
 
   .flicking-stack-container {
-    height: 450px;
+    height: 400px;
   }
 
   .flick-stack-card {
-    width: 320px;
-    height: 400px;
-    margin-left: -160px;
-    margin-top: -200px;
+    width: 500px;
+    height: 320px;
+    margin-left: -250px;
+    margin-top: -160px;
   }
 
   .flick-nav-btn {
@@ -654,14 +654,14 @@ section {
 /* SMALL MOBILE */
 @media (max-width: 480px) {
   .flicking-stack-container {
-    height: 420px;
+    height: 350px;
   }
 
   .flick-stack-card {
-    width: 290px;
-    height: 380px;
-    margin-left: -145px;
-    margin-top: -190px;
+    width: 420px;
+    height: 280px;
+    margin-left: -210px;
+    margin-top: -140px;
     border-radius: 15px;
   }
 
@@ -693,9 +693,14 @@ section {
 /* EXTRA SMALL MOBILE */
 @media (max-width: 360px) {
   .flick-stack-card {
-    width: 270px;
-    height: 360px;
-    margin-left: -135px;
+    width: 340px;
+    height: 230px;
+    margin-left: -170px;
+    margin-top: -115px;
+  }
+  
+  .flicking-stack-container {
+    height: 320px;
   }
 }
 
