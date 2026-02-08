@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faYoutube, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import FlickingGallery from '@/components/FlickingGallery';
 
 const currentYear = new Date().getFullYear();
 
@@ -76,34 +77,10 @@ export default function Home() {
       </section>
 
      {/* GALLERY SECTION */}
-      <section ref={sectionRefs.gallery} id="gallery" className="section">
-        <h2 style={{ textAlign: 'center', marginBottom: '50px' }}>Gallery</h2>
-        <div className="gallery-3d-container">
-            {[
-            { title: 'Live Performance', img: 'gallery-1.jpg' },
-            { title: 'Band Rehearsal', img: 'gallery-2.jpg' },
-            { title: 'Studio Session', img: 'gallery-3.jpg' },
-            { title: 'Backstage Moments', img: 'gallery-4.jpg' },
-            { title: 'Fan Meet & Greet', img: 'gallery-5.jpg' },
-            { title: 'On Tour', img: 'gallery-6.jpg' }
-            ].map((item, i) => (
-            <figure key={i} className="gallery-card">
-                <figcaption>{item.title}</figcaption>
-                <div className="gallery-line-separator"></div>
-                <div className="gallery-card-image">
-                <img 
-                    src={`/images/gallery/${item.img}`} 
-                    alt={item.title}
-                    onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.style.background = 'linear-gradient(135deg, #ff9933, #ffd700)';
-                    }}
-                />
-                </div>
-            </figure>
-            ))}
-        </div>
-      </section>
+       <section ref={sectionRefs.gallery} id="gallery" className="section">
+         <h2 style={{ textAlign: 'center', marginBottom: '50px', color: '#fea331' }}>Gallery</h2>
+         <FlickingGallery />
+       </section>
         {/* MUSIC SECTION */}
       <MusicSection sectionRef={sectionRefs.music} />
 
