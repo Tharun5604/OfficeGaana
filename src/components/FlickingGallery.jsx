@@ -3,12 +3,12 @@
 import { useState, useRef, useEffect } from 'react';
 
 const galleryData = [
-  { title: 'Live Performance', img: 'gallery-1.jpg' },
-  { title: 'Band Rehearsal', img: 'gallery-2.jpg' },
-  { title: 'Studio Session', img: 'gallery-3.jpg' },
-  { title: 'Backstage Moments', img: 'gallery-4.jpg' },
-  { title: 'Fan Meet & Greet', img: 'gallery-5.jpg' },
-  { title: 'On Tour', img: 'gallery-6.jpg' }
+  { img: 'gallery-1.jpg' },
+  { img: 'gallery-2.jpg' },
+  { img: 'gallery-3.jpg' },
+  { img: 'gallery-4.jpg' },
+  { img: 'gallery-5.jpg' },
+  { img: 'gallery-6.jpg' }
 ];
 
 export default function FlickingGallery() {
@@ -16,21 +16,15 @@ export default function FlickingGallery() {
   const containerRef = useRef(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
-  const startY = useRef(0);
-  const isMobile = useRef(false);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Detect if mobile
-    isMobile.current = window.innerWidth <= 768;
-
     // Mouse events for desktop
     const handleMouseDown = (e) => {
       isDragging.current = true;
       startX.current = e.pageX;
-      startY.current = e.pageY;
       container.style.cursor = 'grabbing';
     };
 
@@ -58,7 +52,6 @@ export default function FlickingGallery() {
     const handleTouchStart = (e) => {
       isDragging.current = true;
       startX.current = e.touches[0].pageX;
-      startY.current = e.touches[0].pageY;
     };
 
     const handleTouchMove = (e) => {
@@ -79,7 +72,6 @@ export default function FlickingGallery() {
       isDragging.current = false;
     };
 
-    // Add event listeners
     container.addEventListener('mousedown', handleMouseDown);
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseup', handleMouseUp);
@@ -94,24 +86,18 @@ export default function FlickingGallery() {
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseup', handleMouseUp);
       container.removeEventListener('mouseleave', handleMouseUp);
-      
       container.removeEventListener('touchstart', handleTouchStart);
       container.removeEventListener('touchmove', handleTouchMove);
       container.removeEventListener('touchend', handleTouchEnd);
     };
   }, [currentIndex]);
 
-  // Navigation buttons
   const goToPrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
+    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
   };
 
   const goToNext = () => {
-    if (currentIndex < galleryData.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
+    if (currentIndex < galleryData.length - 1) setCurrentIndex(currentIndex + 1);
   };
 
   return (
@@ -132,31 +118,18 @@ export default function FlickingGallery() {
               `
             }}
           >
-            <div className="flick-stack-inner">
-              <div className="flick-stack-bg"></div>
-              
-              <figcaption className="flick-stack-caption">
-                {item.title}
-              </figcaption>
-              
-              <div className="flick-stack-separator"></div>
-              
-              <div className="flick-stack-image">
-                <img
-                  src={`/images/gallery/${item.img}`}
-                  alt={item.title}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.style.background = 'linear-gradient(135deg, #fea331, #ffd656)';
-                  }}
-                />
-              </div>
-            </div>
+            <img
+              src={`/images/gallery/${item.img}`}
+              alt={`Gallery image ${i + 1}`}
+              className="flick-stack-image"
+              onError={(e) => {
+                e.target.style.background = 'linear-gradient(135deg, #fea331, #ffd656)';
+              }}
+            />
           </div>
         ))}
       </div>
 
-      {/* Navigation Arrows */}
       <button
         className="flick-nav-btn flick-nav-prev"
         onClick={goToPrevious}
@@ -174,7 +147,6 @@ export default function FlickingGallery() {
         ›
       </button>
 
-      {/* Pagination Dots */}
       <div className="flick-stack-pagination">
         {galleryData.map((_, i) => (
           <button
@@ -186,7 +158,6 @@ export default function FlickingGallery() {
         ))}
       </div>
 
-      {/* Card Counter */}
       <div className="flick-counter">
         {currentIndex + 1} / {galleryData.length}
       </div>
