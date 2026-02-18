@@ -1213,7 +1213,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  padding: 10px 50px;
   max-width: 2400px;
   margin: 0 auto;
   gap: 30px;
