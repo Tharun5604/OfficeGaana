@@ -118,7 +118,7 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="footer">
-        <div className="footer-logo">🎸</div>
+        <div className="footer-logo"> <img src="/images/logo-nobg-resize.png" alt="OfficeGaana Logo" /></div>
         <p>© All rights reserved · OfficeGaana {currentYear}</p>
         <div className="footer-social">
           <a 
