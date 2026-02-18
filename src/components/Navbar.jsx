@@ -74,9 +74,10 @@ export default function Navbar({ scrollToSection }) {
         <button 
           onClick={handleLogoClick} 
           className="logo"
+          img src= '/images/logo-nobg.png' alt="OfficeGaana Logo"
           aria-label="OfficeGaana - Home"
         >
-          OfficeGaana
+          <img src="/images/logo-nobg.png" alt="OfficeGaana Logo" />
         </button>
 
         {/* RIGHT NAVIGATION */}
