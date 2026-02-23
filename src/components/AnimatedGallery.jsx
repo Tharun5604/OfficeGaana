@@ -46,102 +46,79 @@ export default function AnimatedGallery() {
   };
 
   // Navigation functions
-  const nextImage = useCallback(() => {
-    if (selected === null) return;
-    playSwipeSound();
-    setDirection(1);
-    setSelected((prev) => (prev + 1) % images.length);
-  }, [selected]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const prevImage = useCallback(() => {
-    if (selected === null) return;
-    playSwipeSound();
-    setDirection(-1);
-    setSelected((prev) =>
+  const close = () => setSelectedIndex(null);
+
+  const next = () =>
+    setSelectedIndex((prev) =>
+      prev === images.length - 1 ? 0 : prev + 1
+    );
+
+  const prev = () =>
+    setSelectedIndex((prev) =>
       prev === 0 ? images.length - 1 : prev - 1
     );
-  }, [selected]);
 
-  // ⌨️ ESC + Arrow Keys
+  // ESC key close
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.key === "Escape") setSelected(null);
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === "ArrowLeft") prevImage();
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
     };
-
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [nextImage, prevImage]);
+  }, []);
 
   return (
-    <div className={styles.container}>
-      {/* GRID */}
-      <div className={styles.grid}>
-        {images.map((src, index) => (
+    <>
+      {/* 🔥 Masonry Grid */}
+      <div className="gallery-grid">
+        {images.map((img, index) => (
           <motion.div
             key={index}
-            layoutId={`image-${index}`}
-            className={styles.galleryItem}
-            onClick={() => setSelected(index)}
+            layout
+            className="gallery-item"
             whileHover={{ scale: 1.05 }}
+            onClick={() => setSelectedIndex(index)}
           >
-            <img src={src} alt="" />
+            <img src={img} alt="concert" />
           </motion.div>
         ))}
       </div>
 
-      {/* FULLSCREEN */}
-      <AnimatePresence mode="wait">
-        {selected !== null && (
-          <>
-            {/* 🎇 Overlay */}
-            <motion.div
-              className={styles.overlay}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelected(null)}
-            />
-
-            {/* ⬅️➡️ Navigation */}
-            <button
-              className={`${styles.nav} ${styles.left}`}
-              onClick={prevImage}
-            >
-              ←
-            </button>
-
-            <button
-              className={`${styles.nav} ${styles.right}`}
-              onClick={nextImage}
-            >
-              →
-            </button>
-
-            {/* Swipe Image */}
+      {/* 🔥 Fullscreen Overlay */}
+      <AnimatePresence>
+        {selectedIndex !== null && (
+          <motion.div
+            className="fullscreen-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <motion.img
-              key={selected}
-              src={images[selected]}
-              className={styles.fullscreenImage}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              onDragEnd={(e, info) => {
-                if (info.offset.x < -100) nextImage();
-                if (info.offset.x > 100) prevImage();
-              }}
-              initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 30,
-              }}
+              key={images[selectedIndex]}
+              src={images[selectedIndex]}
+              className="fullscreen-image"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
             />
-          </>
+
+            <button className="nav left" onClick={prev}>
+              ⬅
+            </button>
+            <button className="nav right" onClick={next}>
+              ➡
+            </button>
+
+            <button className="close-btn" onClick={close}>
+              ✕
+            </button>
+          </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }
