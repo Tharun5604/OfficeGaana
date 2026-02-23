@@ -1,81 +1,263 @@
-/* 🔥 ORANGE DOMINANT THEME */
+/* =========================================
+   ANIMATED GALLERY — Office Gaana Theme
+   Masonry grid + fullscreen modal
+   ========================================= */
 
-.gallery-grid {
-  column-count: 4;
-  column-gap: 15px;
-  padding: 20px;
-  background: #000;
-}
-
-.gallery-item {
-  break-inside: avoid;
-  margin-bottom: 15px;
-  cursor: pointer;
-  overflow: hidden;
-  border-radius: 10px;
-  border: 3px solid #fea331;
-}
-
-.gallery-item img {
+/* ── MASONRY GRID ── */
+.masonryGrid {
+  column-count: 6;
+  column-gap: 10px;
+  padding: 0 30px 40px;
   width: 100%;
+  box-sizing: border-box;
+}
+
+.masonryItem {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 6px;
+  overflow: hidden;
   display: block;
-  transition: 0.4s ease;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
-.gallery-item:hover img {
-  transform: scale(1.1);
+.masonryItem:hover {
+  border-color: #fea331;
 }
 
-/* 🔥 FULLSCREEN */
+.masonryItem img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 0.4s ease;
+}
 
-.fullscreen-overlay {
-  position: fixed;
+.masonryItem:hover img {
+  transform: scale(1.06);
+}
+
+/* Hover overlay */
+.hoverOverlay {
+  position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, #fea331 0%, #000 60%);
+  background: rgba(254, 163, 49, 0.25);
+  opacity: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  transition: opacity 0.3s ease;
+  border-radius: 4px;
 }
 
-.fullscreen-image {
-  max-width: 85%;
-  max-height: 85%;
-  border-radius: 15px;
-  box-shadow: 0 0 40px #fea331;
+.masonryItem:hover .hoverOverlay {
+  opacity: 1;
 }
 
-/* NAV BUTTONS */
+.viewIcon {
+  font-size: 36px;
+  color: #fea331;
+  text-shadow: 0 0 20px rgba(254, 163, 49, 0.9);
+  font-weight: 300;
+}
 
-.nav {
+/* ── BACKDROP ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 9000;
+}
+
+/* ── STAGE LIGHTS ── */
+.stageLights {
+  position: fixed;
+  inset: 0;
+  z-index: 9001;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.light1,
+.light2,
+.light3 {
   position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: driftLight 6s ease-in-out infinite alternate;
+}
+
+.light1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(254, 163, 49, 0.35) 0%, transparent 70%);
+  top: -100px;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.light2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(254, 163, 49, 0.25) 0%, transparent 70%);
+  top: -80px;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.light3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(254, 214, 86, 0.2) 0%, transparent 70%);
+  bottom: -80px;
+  left: 40%;
+  animation-delay: 4s;
+}
+
+@keyframes driftLight {
+  from { transform: translateY(0px) translateX(0px); }
+  to   { transform: translateY(30px) translateX(20px); }
+}
+
+/* ── FULLSCREEN IMAGE WRAPPER ── */
+.fullscreenWrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 88vw;
+  max-height: 88vh;
+  cursor: grab;
+}
+
+.fullscreenWrapper:active {
+  cursor: grabbing;
+}
+
+.fullscreenImg {
+  max-width: 100%;
+  max-height: 82vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 3px #fea331,
+    0 30px 80px rgba(0, 0, 0, 0.8),
+    0 0 80px rgba(254, 163, 49, 0.5);
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Counter badge */
+.counter {
+  margin-top: 16px;
+  background: #fea331;
+  color: #000;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 5px 18px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(254, 163, 49, 0.5);
+}
+
+/* ── NAVIGATION ARROWS ── */
+.navBtn {
+  position: fixed;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 9200;
   background: #fea331;
-  color: black;
+  color: #000;
   border: none;
-  padding: 15px 20px;
-  font-size: 24px;
-  cursor: pointer;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
+  font-size: 38px;
+  line-height: 1;
+  cursor: pointer;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 8px 25px rgba(254, 163, 49, 0.5),
+    0 0 30px rgba(254, 163, 49, 0.3);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
-.nav.left {
-  left: 40px;
+.navBtn:hover {
+  background: #ffd656;
+  transform: translateY(-50%) scale(1.12);
+  box-shadow:
+    0 12px 35px rgba(254, 163, 49, 0.7),
+    0 0 50px rgba(254, 163, 49, 0.5);
 }
 
-.nav.right {
-  right: 40px;
-}
+.navLeft  { left: 30px; }
+.navRight { right: 30px; }
 
-.close-btn {
-  position: absolute;
-  top: 30px;
-  right: 40px;
+/* ── CLOSE BUTTON ── */
+.closeBtn {
+  position: fixed;
+  top: 24px;
+  right: 30px;
+  z-index: 9200;
   background: #fea331;
+  color: #000;
   border: none;
-  padding: 10px 15px;
-  font-size: 20px;
-  cursor: pointer;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(254, 163, 49, 0.5);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.closeBtn:hover {
+  background: #ffd656;
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1200px) {
+  .masonryGrid { column-count: 5; }
+}
+
+@media (max-width: 900px) {
+  .masonryGrid { column-count: 4; }
+}
+
+@media (max-width: 680px) {
+  .masonryGrid {
+    column-count: 3;
+    padding: 0 15px 30px;
+    column-gap: 8px;
+  }
+  .masonryItem { margin-bottom: 8px; }
+
+  .navBtn { width: 48px; height: 48px; font-size: 30px; }
+  .navLeft  { left: 12px; }
+  .navRight { right: 12px; }
+}
+
+@media (max-width: 420px) {
+  .masonryGrid { column-count: 2; }
 }

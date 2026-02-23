@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./AnimatedGallery.module.css";
 
@@ -13,110 +13,156 @@ const images = [
   "/images/gallery/6.jpg",
   "/images/gallery/7.jpg",
   "/images/gallery/8.jpg",
+  "/images/gallery/9.jpg",
+  "/images/gallery/10.jpg",
+  "/images/gallery/11.jpg",
+  "/images/gallery/12.jpg",
+];
+
+const soundFiles = [
+  "/sounds/swipe1.mp3",
+  "/sounds/swipe2.mp3",
+  "/sounds/swipe3.mp3",
 ];
 
 export default function AnimatedGallery() {
-  const [selected, setSelected] = useState(null);
-  const [direction, setDirection] = useState(0);
-
-  // 🎵 Preload swipe sounds
-  const soundsRef = useRef([]);
-
-  useEffect(() => {
-    soundsRef.current = [
-      new Audio("/sounds/swipe1.mp3"),
-      new Audio("/sounds/swipe2.mp3"),
-    //   new Audio("/sounds/swipe3.mp3"),
-    ];
-
-    soundsRef.current.forEach((audio) => {
-      audio.volume = 0.4;
-    });
-  }, []);
-
-  const playSwipeSound = () => {
-    const sounds = soundsRef.current;
-    if (!sounds.length) return;
-
-    const random =
-      sounds[Math.floor(Math.random() * sounds.length)];
-
-    random.currentTime = 0;
-    random.play().catch(() => {});
-  };
-
-  // Navigation functions
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const audioRef = useRef(null);
+
+  const playRandomSound = () => {
+    if (!audioRef.current) return;
+    const random = soundFiles[Math.floor(Math.random() * soundFiles.length)];
+    audioRef.current.src = random;
+    audioRef.current.currentTime = 0;
+    audioRef.current.play().catch(() => {});
+  };
 
   const close = () => setSelectedIndex(null);
 
-  const next = () =>
-    setSelectedIndex((prev) =>
-      prev === images.length - 1 ? 0 : prev + 1
-    );
+  const next = () => {
+    playRandomSound();
+    setSelectedIndex((prev) => (prev + 1) % images.length);
+  };
 
-  const prev = () =>
-    setSelectedIndex((prev) =>
-      prev === 0 ? images.length - 1 : prev - 1
-    );
+  const prev = () => {
+    playRandomSound();
+    setSelectedIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
 
-  // ESC key close
   useEffect(() => {
     const handleKey = (e) => {
+      if (selectedIndex === null) return;
       if (e.key === "Escape") close();
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, []);
+  }, [selectedIndex]);
+
+  // Lock scroll when fullscreen open
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [selectedIndex]);
 
   return (
     <>
-      {/* 🔥 Masonry Grid */}
-      <div className="gallery-grid">
-        {images.map((img, index) => (
+      <audio ref={audioRef} preload="none" />
+
+      {/* ── MASONRY GRID ── */}
+      <div className={styles.masonryGrid}>
+        {images.map((src, i) => (
           <motion.div
-            key={index}
-            layout
-            className="gallery-item"
-            whileHover={{ scale: 1.05 }}
-            onClick={() => setSelectedIndex(index)}
+            key={i}
+            className={styles.masonryItem}
+            whileHover={{ scale: 1.03, zIndex: 2 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setSelectedIndex(i)}
           >
-            <img src={img} alt="concert" />
+            <img src={src} alt={`Gallery photo ${i + 1}`} />
+            <div className={styles.hoverOverlay}>
+              <span className={styles.viewIcon}>⊕</span>
+            </div>
           </motion.div>
         ))}
       </div>
 
-      {/* 🔥 Fullscreen Overlay */}
+      {/* ── FULLSCREEN MODAL ── */}
       <AnimatePresence>
         {selectedIndex !== null && (
-          <motion.div
-            className="fullscreen-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.img
-              key={images[selectedIndex]}
-              src={images[selectedIndex]}
-              className="fullscreen-image"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className={styles.backdrop}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={close}
             />
 
-            <button className="nav left" onClick={prev}>
-              ⬅
+            {/* Stage lights effect */}
+            <div className={styles.stageLights}>
+              <div className={styles.light1} />
+              <div className={styles.light2} />
+              <div className={styles.light3} />
+            </div>
+
+            {/* Image */}
+            <motion.div
+              className={styles.fullscreenWrapper}
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85 }}
+              transition={{ type: "spring", stiffness: 280, damping: 28 }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -80) next();
+                if (info.offset.x > 80) prev();
+              }}
+            >
+              <img
+                src={images[selectedIndex]}
+                alt=""
+                className={styles.fullscreenImg}
+              />
+              {/* Counter */}
+              <div className={styles.counter}>
+                {selectedIndex + 1} / {images.length}
+              </div>
+            </motion.div>
+
+            {/* Arrows */}
+            <button
+              className={`${styles.navBtn} ${styles.navLeft}`}
+              onClick={(e) => { e.stopPropagation(); prev(); }}
+              aria-label="Previous"
+            >
+              ‹
             </button>
-            <button className="nav right" onClick={next}>
-              ➡
+            <button
+              className={`${styles.navBtn} ${styles.navRight}`}
+              onClick={(e) => { e.stopPropagation(); next(); }}
+              aria-label="Next"
+            >
+              ›
             </button>
 
-            <button className="close-btn" onClick={close}>
+            {/* Close */}
+            <button
+              className={styles.closeBtn}
+              onClick={close}
+              aria-label="Close"
+            >
               ✕
             </button>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
