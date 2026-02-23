@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faYoutube, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import AnimatedGallery from "@/components/AnimatedGallery/AnimatedGallery";
+import AnimatedGallery from "@/components/AnimatedGallery.jsx";
 
 const currentYear = new Date().getFullYear();
 
