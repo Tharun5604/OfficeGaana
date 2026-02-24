@@ -151,7 +151,7 @@ section {
 
 .hero .hashtag {
   font-size: clamp(14px, 3vw, 24px);
-  font-family: Pacifico, cursive;
+  font-family: Montserrat;
   color: #fff;
   margin-bottom: 25px;
   font-weight: 300;
@@ -384,14 +384,14 @@ section {
 
 .concerts .subtitle {
   font-size: clamp(20px, 4vw, 36px);
-  color: #fea331;
+  color: #000000;
   margin-bottom: 30px;
   font-weight: 600;
 }
 
 .concerts .cities {
   font-size: clamp(14px, 2.5vw, 20px);
-  color: #fea331;
+  color: #000000;
   margin-bottom: 50px;
   letter-spacing: 3px;
   font-weight: 500;
@@ -400,7 +400,7 @@ section {
 .concerts p {
   font-size: clamp(16px, 2.5vw, 22px);
   margin-bottom: 50px;
-  color: #ccc;
+  color: #000000;
 }
 
 /* EMAIL SIGNUP */
@@ -419,7 +419,7 @@ section {
   border: 2px solid #333;
   background: #1a1a1a;
   color: #fff;
-  border-radius: 8px;
+  border-radius: 20px;
   font-size: 16px;
 }
 
@@ -428,7 +428,7 @@ section {
   background: #fea331;
   color: #000000;
   border: none;
-  border-radius: 8px;
+  border-radius: 20px;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s;
@@ -459,6 +459,7 @@ section {
   letter-spacing: 3px;
   text-transform: uppercase;
   position: relative;
+  color: #000000;
 }
 
 /* glowing underline */
@@ -500,7 +501,7 @@ section {
 .about h2 {
   font-size: clamp(36px, 6vw, 56px);
   margin-bottom: 50px;
-  color: #fea331;
+  color: #020202;
 }
 
 .about p {
@@ -508,7 +509,7 @@ section {
   line-height: 1.9;
   margin-bottom: 30px;
   text-align: left;
-  color: #ddd;
+  color: #000000;
 }
 
 /* VIDEO GRID */
@@ -606,7 +607,7 @@ section {
   color: #fff;
   border-radius: 8px;
   font-size: 16px;
-  font-family: inherit;
+  font-family: Montserrat;
   transition: border-color 0.3s;
 }
 
@@ -669,7 +670,7 @@ section {
 
 .footer p {
   margin-bottom: 30px;
-  color: #888;
+  color: #000000;
   font-size: 16px;
 }
 
@@ -1382,7 +1383,7 @@ a {
 }
 
 button {
-  font-family: inherit;
+  font-family: Montserrat ;
 }
 
 /* NAVBAR SHADOW ON SCROLL */
