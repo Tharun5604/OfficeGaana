@@ -201,7 +201,7 @@ section {
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
-  background: #000000;
+  background: (var(--orange));
   border-radius: 0;
   box-shadow: none;
 }
