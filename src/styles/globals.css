@@ -373,12 +373,7 @@ section {
 .concerts {
   padding: 100px 50px;
   text-align: center;
-  background: linear-gradient(
-    180deg,
-    #000000 0%,
-    #111111 50%,
-    #fea331 150%
-  );
+  background: radial-gradient(circle, #e1a345 0%, #db8c2a 100%)
 }
 
 .concerts h2 {
@@ -451,12 +446,7 @@ section {
 
 .section {
   padding: 100px 50px;
-  background: linear-gradient(
-    180deg,
-    #000000 0%,
-    #111111 30%,
-    #fea331 100%
-  );
+  background: radial-gradient(circle, #e1a345 0%, #db8c2a 100%)
 }
 
 #gallery {
@@ -486,11 +476,7 @@ section {
 /* ABOUT SECTION */
 .about {
   padding: 100px 50px;
-  background: linear-gradient(
-    180deg,
-    #fea331 0%,
-    #000000 60%
-  );
+  background: radial-gradient(circle, #e1a345 0%, #db8c2a 100%);
   text-align: center;
 }
 
@@ -582,11 +568,7 @@ section {
 .page {
   min-height: 80vh;
   padding: 120px 50px 80px;
-  background: linear-gradient(
-    180deg,
-    #000000 0%,
-    #fea331 140%
-  );
+  background: radial-gradient(circle, #e1a345 0%, #db8c2a 100%);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -966,7 +948,7 @@ section {
   right: 0;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0px);
   z-index: 1000;
   transition: all 0.3s ease;
   border-bottom: 1px solid transparent;
