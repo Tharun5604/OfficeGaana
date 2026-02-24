@@ -151,6 +151,7 @@ section {
 
 .hero .hashtag {
   font-size: clamp(14px, 3vw, 24px);
+  font-family: Pacifico, cursive;
   color: #fff;
   margin-bottom: 25px;
   font-weight: 300;
