@@ -12,22 +12,23 @@ const images = [
   "/images/gallery/5.jpg",
   "/images/gallery/6.jpg",
   "/images/gallery/7.jpg",
+  "/images/gallery/8.jpg",
   "/images/gallery/9.jpg",
   "/images/gallery/10.jpg",
   "/images/gallery/11.jpg",
   "/images/gallery/12.jpg",
-  "/images/gallery/8.jpg",
 ];
 
 const soundFiles = [
   "/sounds/swipe1.mp3",
   "/sounds/swipe2.mp3",
-//   "/sounds/swipe3.mp3",
+  "/sounds/swipe3.mp3",
 ];
 
 export default function AnimatedGallery() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const audioRef = useRef(null);
+  const dragStartX = useRef(0);
 
   const playRandomSound = () => {
     if (!audioRef.current) return;
@@ -49,6 +50,7 @@ export default function AnimatedGallery() {
     setSelectedIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
+  // Keyboard navigation
   useEffect(() => {
     const handleKey = (e) => {
       if (selectedIndex === null) return;
@@ -60,15 +62,24 @@ export default function AnimatedGallery() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [selectedIndex]);
 
-  // Lock scroll when fullscreen open
+  // Lock body scroll
   useEffect(() => {
-    if (selectedIndex !== null) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = selectedIndex !== null ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [selectedIndex]);
+
+  // Touch swipe handlers
+  const handleTouchStart = (e) => {
+    dragStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const diff = dragStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) next();
+      else prev();
+    }
+  };
 
   return (
     <>
@@ -80,11 +91,11 @@ export default function AnimatedGallery() {
           <motion.div
             key={i}
             className={styles.masonryItem}
-            whileHover={{ scale: 1.03, zIndex: 2 }}
-            transition={{ duration: 0.25 }}
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.22 }}
             onClick={() => setSelectedIndex(i)}
           >
-            <img src={src} alt={`Gallery photo ${i + 1}`} />
+            <img src={src} alt={`Gallery ${i + 1}`} loading="lazy" />
             <div className={styles.hoverOverlay}>
               <span className={styles.viewIcon}>⊕</span>
             </div>
@@ -95,50 +106,42 @@ export default function AnimatedGallery() {
       {/* ── FULLSCREEN MODAL ── */}
       <AnimatePresence>
         {selectedIndex !== null && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              className={styles.backdrop}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={close}
-            />
+          /* Outer backdrop — clicking it closes */
+          <motion.div
+            className={styles.modalRoot}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={close}
+          >
+            {/* Stage lights */}
+            <div className={styles.stageLights} />
 
-            {/* Stage lights effect */}
-            <div className={styles.stageLights}>
-              <div className={styles.light1} />
-              <div className={styles.light2} />
-              <div className={styles.light3} />
-            </div>
-
-            {/* Image */}
+            {/* Inner card — stops click from closing */}
             <motion.div
-              className={styles.fullscreenWrapper}
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.85 }}
-              transition={{ type: "spring", stiffness: 280, damping: 28 }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
-              onDragEnd={(_, info) => {
-                if (info.offset.x < -80) next();
-                if (info.offset.x > 80) prev();
-              }}
+              className={styles.modalCard}
+              initial={{ scale: 0.82, opacity: 0 }}
+              animate={{ scale: 1,    opacity: 1 }}
+              exit={{    scale: 0.82, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
               <img
                 src={images[selectedIndex]}
                 alt=""
                 className={styles.fullscreenImg}
+                draggable={false}
               />
+
               {/* Counter */}
               <div className={styles.counter}>
                 {selectedIndex + 1} / {images.length}
               </div>
             </motion.div>
 
-            {/* Arrows */}
+            {/* ← → Arrows — hidden on mobile via CSS */}
             <button
               className={`${styles.navBtn} ${styles.navLeft}`}
               onClick={(e) => { e.stopPropagation(); prev(); }}
@@ -157,12 +160,12 @@ export default function AnimatedGallery() {
             {/* Close */}
             <button
               className={styles.closeBtn}
-              onClick={close}
+              onClick={(e) => { e.stopPropagation(); close(); }}
               aria-label="Close"
             >
               ✕
             </button>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

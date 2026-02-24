@@ -65,104 +65,67 @@
   font-weight: 300;
 }
 
-/* ── BACKDROP ── */
-.backdrop {
+/* ── MODAL ROOT (backdrop + flex centering) ── */
+.modalRoot {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.92);
-  backdrop-filter: blur(8px);
   z-index: 9000;
+  background: rgba(0, 0, 0, 0.93);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── STAGE LIGHTS ── */
 .stageLights {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 9001;
   pointer-events: none;
   overflow: hidden;
+  background:
+    radial-gradient(ellipse 500px 300px at 15% 0%, rgba(254,163,49,0.28) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 250px at 85% 0%, rgba(254,163,49,0.2) 0%, transparent 70%),
+    radial-gradient(ellipse 300px 200px at 50% 100%, rgba(254,214,86,0.15) 0%, transparent 70%);
+  animation: stagePulse 5s ease-in-out infinite alternate;
 }
 
-.light1,
-.light2,
-.light3 {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  animation: driftLight 6s ease-in-out infinite alternate;
+@keyframes stagePulse {
+  from { opacity: 0.7; }
+  to   { opacity: 1; }
 }
 
-.light1 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(254, 163, 49, 0.35) 0%, transparent 70%);
-  top: -100px;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.light2 {
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(254, 163, 49, 0.25) 0%, transparent 70%);
-  top: -80px;
-  right: 15%;
-  animation-delay: 2s;
-}
-
-.light3 {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(254, 214, 86, 0.2) 0%, transparent 70%);
-  bottom: -80px;
-  left: 40%;
-  animation-delay: 4s;
-}
-
-@keyframes driftLight {
-  from { transform: translateY(0px) translateX(0px); }
-  to   { transform: translateY(30px) translateX(20px); }
-}
-
-/* ── FULLSCREEN IMAGE WRAPPER ── */
-.fullscreenWrapper {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* ── MODAL CARD (the centered image container) ── */
+.modalCard {
+  position: relative;
   z-index: 9100;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   max-width: 88vw;
-  max-height: 88vh;
-  cursor: grab;
-}
-
-.fullscreenWrapper:active {
-  cursor: grabbing;
+  max-height: 90vh;
+  /* prevent click-through to backdrop */
+  pointer-events: all;
 }
 
 .fullscreenImg {
-  max-width: 100%;
-  max-height: 82vh;
+  max-width: 88vw;
+  max-height: 80vh;
   width: auto;
   height: auto;
   object-fit: contain;
-  border-radius: 16px;
-  box-shadow:
-    0 0 0 3px #fea331,
-    0 30px 80px rgba(0, 0, 0, 0.8),
-    0 0 80px rgba(254, 163, 49, 0.5);
+  border-radius: 14px;
   display: block;
   user-select: none;
-  pointer-events: none;
+  box-shadow:
+    0 0 0 3px #fea331,
+    0 30px 80px rgba(0, 0, 0, 0.85),
+    0 0 70px rgba(254, 163, 49, 0.45);
 }
 
 /* Counter badge */
 .counter {
-  margin-top: 16px;
+  margin-top: 14px;
   background: #fea331;
   color: #000;
   font-size: 13px;
@@ -171,21 +134,22 @@
   border-radius: 20px;
   letter-spacing: 1px;
   box-shadow: 0 4px 15px rgba(254, 163, 49, 0.5);
+  user-select: none;
 }
 
 /* ── NAVIGATION ARROWS ── */
 .navBtn {
-  position: fixed;
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 9200;
   background: #fea331;
   color: #000;
   border: none;
-  width: 60px;
-  height: 60px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  font-size: 38px;
+  font-size: 40px;
   line-height: 1;
   cursor: pointer;
   font-weight: 300;
@@ -206,22 +170,22 @@
     0 0 50px rgba(254, 163, 49, 0.5);
 }
 
-.navLeft  { left: 30px; }
-.navRight { right: 30px; }
+.navLeft  { left: 28px; }
+.navRight { right: 28px; }
 
 /* ── CLOSE BUTTON ── */
 .closeBtn {
-  position: fixed;
-  top: 24px;
-  right: 30px;
+  position: absolute;
+  top: 20px;
+  right: 28px;
   z-index: 9200;
   background: #fea331;
   color: #000;
   border: none;
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
@@ -253,9 +217,16 @@
   }
   .masonryItem { margin-bottom: 8px; }
 
-  .navBtn { width: 48px; height: 48px; font-size: 30px; }
-  .navLeft  { left: 12px; }
-  .navRight { right: 12px; }
+  /* Hide arrows on mobile — swipe to navigate instead */
+  .navBtn { display: none; }
+
+  /* More screen space for image on mobile */
+  .fullscreenImg {
+    max-width: 96vw;
+    max-height: 75vh;
+  }
+
+  .counter { font-size: 12px; }
 }
 
 @media (max-width: 420px) {
