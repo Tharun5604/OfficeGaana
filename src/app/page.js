@@ -59,7 +59,7 @@ export default function Home() {
         <div className="hero::before"></div>
         <div className="hero-content">
           <h1>Officegaana</h1>
-          <p className="hashtag">#blah blah blah</p>
+          <p className="hashtag">#idhuofficegaana</p>
           <p className="release-text"></p>
         </div>
       </section>
