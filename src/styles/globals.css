@@ -653,7 +653,7 @@ section {
 /* FOOTER */
 .footer {
   padding: 60px 50px;
-  background: var(--orange);
+  background: var(--black);
   text-align: center;
   border-top: 1px solid #222;
 }
@@ -670,7 +670,7 @@ section {
 
 .footer p {
   margin-bottom: 30px;
-  color: #000000;
+  color: var(--bright-orange);
   font-size: 16px;
 }
 
