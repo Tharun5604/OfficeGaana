@@ -168,7 +168,7 @@ section {
 /* MUSIC SECTION WITH CENTER CAROUSEL - FIXED LAYOUT */
 .music {
   padding: 80px 50px;
-  background:var(--orange);
+  background:radial-gradient(circle, #e1a345 0%, #db8c2a 100%);
   color: #000000;
 }
 

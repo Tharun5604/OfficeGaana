@@ -95,9 +95,6 @@ export default function AnimatedGallery() {
             onClick={() => setSelectedIndex(i)}
           >
             <img src={src} alt={`Gallery ${i + 1}`} loading="lazy" />
-            <div className={styles.hoverOverlay}>
-              <span className={styles.viewIcon}>⊕</span>
-            </div>
           </motion.div>
         ))}
       </div>
