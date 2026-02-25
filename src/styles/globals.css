@@ -490,7 +490,7 @@ section {
   width: 150px;
   height: 150px;
   margin: 0 auto 40px;
-  background: linear-gradient(135deg, #fea331, #ffd656);
+  background: radial-gradient(circle, #e1a345 0%, #db8c2a 100%);
   border-radius: 25px;
   display: flex;
   align-items: center;
