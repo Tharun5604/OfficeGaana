@@ -92,7 +92,7 @@ export default function Home() {
       {/* ABOUT SECTION */}
       <section ref={sectionRefs.about} id="about" className="about">
         <div className="about-content">
-          <div className="about-icon"><img src="/images/logo.jpeg" alt="Office Gaana Logo" /></div>
+          <div className="about-icon"><img src="/images/logo-nobg-resize.png" alt="Office Gaana Logo" /></div>
           <h2>About Office Gaana</h2>
           <p>
            Initially gaining traction through Instagram Reels, the office
