@@ -21,7 +21,7 @@ export default function Home() {
     videos: useRef(null),
     contact: useRef(null),
   };
-    const handleLogoClick = () => {
+  const handleLogoClick = () => {
     setActiveSection('home');
     setIsMobileMenuOpen(false);
     scrollToSection('home');
