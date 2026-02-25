@@ -21,6 +21,12 @@ export default function Home() {
     videos: useRef(null),
     contact: useRef(null),
   };
+    const handleLogoClick = () => {
+    setActiveSection('home');
+    setIsMobileMenuOpen(false);
+    scrollToSection('home');
+  };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -136,7 +142,13 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="footer">
-        <div className="footer-logo"> <img src="/images/logo-nobg-resize.png" alt="OfficeGaana Logo" /></div>
+        <button 
+          onClick={handleLogoClick} 
+          className="logo"
+          img src= '/images/logo-nobg-resize.png' alt="OfficeGaana Logo"
+        >
+          <img src="/images/logo-nobg-resize.png" alt="OfficeGaana Logo" />
+        </button>
         <p>© All rights reserved · OfficeGaana {currentYear}</p>
         <div className="footer-social">
           <a 
