@@ -92,7 +92,13 @@ export default function Home() {
       {/* ABOUT SECTION */}
       <section ref={sectionRefs.about} id="about" className="about">
         <div className="about-content">
-          <div className="about-icon"><img src="/images/logo-nobg-resize.png" alt="Office Gaana Logo" /></div>
+          <button 
+          onClick={handleLogoClick} 
+          className="logo"
+          img src= '/images/logo-nobg-resize.png' alt="OfficeGaana Logo"
+        >
+          <img src="/images/logo-nobg-resize.png" alt="OfficeGaana Logo" />
+        </button>
           <h2>About Office Gaana</h2>
           <p>
            Initially gaining traction through Instagram Reels, the office
@@ -156,6 +162,7 @@ export default function Home() {
           <p>Developed by <a href="https://www.linkedin.com/in/tharun-kubendiran-594004286/" 
                              target="_blank" 
                              rel="noopener noreferrer"
+                             className="developer-link"
                             >Tharun K</a></p>
         </div>
       </footer>
