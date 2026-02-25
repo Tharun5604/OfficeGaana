@@ -653,7 +653,7 @@ section {
 /* FOOTER */
 .footer {
   padding: 60px 50px;
-  background: #000000;
+  background: var(--orange);
   text-align: center;
   border-top: 1px solid #222;
 }
