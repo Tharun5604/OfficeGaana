@@ -3,6 +3,9 @@ import "@/styles/globals.css";
 export const metadata = {
   title: "Officegaana",
   description: "Songs About Staying Alive When You Don't Want To",
+   icons: {
+    icon: "/images/logo-nobg.png",
+  },
 };
 
 export default function RootLayout({ children }) {
