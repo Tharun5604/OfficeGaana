@@ -74,12 +74,13 @@ export default function Home() {
 
       {/* HALL OF FAME SECTION */}
       <section ref={sectionRefs['hall of fame']} id="hall of fame" className="hall-of-fame">
+        <ScrollFloat textClassName="hof-float-text">Hall of Fame</ScrollFloat>
         <HallOfFame sectionRef={sectionRefs['hall-of-fame']} />
       </section>
 
       {/* CONCERTS SECTION */}
       <section ref={sectionRefs.concerts} id="concerts" className="concerts">
-        <ScrollFloat textClassName="hof-float-text">Hall of Fame</ScrollFloat>
+        <ScrollFloat textClassName="concerts-float-text">Upcoming Concerts</ScrollFloat>
         <div className="subtitle">Tour Dates 2025</div>
         <p className="cities">Multiple Cities</p>
         <p>Join us for an unforgettable experience across major cities.</p>
