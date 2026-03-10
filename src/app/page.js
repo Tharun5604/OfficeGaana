@@ -74,7 +74,6 @@ export default function Home() {
 
       {/* HALL OF FAME SECTION */}
       <section ref={sectionRefs['hall of fame']} id="hall of fame" className="hall-of-fame">
-        <ScrollFloat textClassName="hof-float-text">Hall of Fame</ScrollFloat>
         <HallOfFame sectionRef={sectionRefs['hall-of-fame']} />
       </section>
 

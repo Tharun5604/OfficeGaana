@@ -1,6 +1,7 @@
 // components/HallOfFame.jsx
 'use client';
 import { useState } from 'react';
+import ScrollFloat from '@/components/ScrollFloat';
 
 const LEGENDS = [
   { id: 1, name: 'collab one',   img: '/images/gallery/AR.jpg',       cell: 'tl' },
@@ -34,7 +35,7 @@ export default function HallOfFame({ sectionRef }) {
       <div className="hof-ring hof-ring--2" />
 
       <div className="hof-header">
-        <h2 className="hof-title">Hall of Fame</h2>
+       <ScrollFloat textClassName="hof-float-text">Hall of Fame</ScrollFloat>
         {/* <p className="hof-sub">ssjjj</p> */}
       </div>
 
