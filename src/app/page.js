@@ -89,18 +89,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONCERTS SECTION */}
-      <section ref={sectionRefs.concerts} id="concerts" className="concerts">
-        <ScrollFloat textClassName="concerts-float-text">Upcoming Concerts</ScrollFloat>
-        <div className="subtitle">Tour Dates 2025</div>
-        <p className="cities">Multiple Cities</p>
-        <p>Join us for an unforgettable experience across major cities.</p>
-        <div className="email-signup">
-          <input type="email" placeholder="Enter your email for tour updates" />
-          <button>Notify Me</button>
-        </div>
-      </section>
-
      {/* GALLERY SECTION */}
         <section
           ref={sectionRefs.gallery}
