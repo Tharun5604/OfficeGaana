@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faYoutube, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import AnimatedGallery from "@/components/AnimatedGallery.jsx";
 import HallOfFame from '@/components/HallOfFame';
+import ScrollFloat from '@/components/ScrollFloat';
 
 const currentYear = new Date().getFullYear();
 
@@ -78,7 +79,7 @@ export default function Home() {
 
       {/* CONCERTS SECTION */}
       <section ref={sectionRefs.concerts} id="concerts" className="concerts">
-        <h2>Upcoming Concerts</h2>
+        <ScrollFloat textClassName="hof-float-text">Hall of Fame</ScrollFloat>
         <div className="subtitle">Tour Dates 2025</div>
         <p className="cities">Multiple Cities</p>
         <p>Join us for an unforgettable experience across major cities.</p>
@@ -90,7 +91,7 @@ export default function Home() {
 
       {/* CONCERTS SECTION */}
       <section ref={sectionRefs.concerts} id="concerts" className="concerts">
-        <h2>Upcoming Concerts</h2>
+        <ScrollFloat textClassName="concerts-float-text">Upcoming Concerts</ScrollFloat>
         <div className="subtitle">Tour Dates 2025</div>
         <p className="cities">Multiple Cities</p>
         <p>Join us for an unforgettable experience across major cities.</p>
@@ -106,7 +107,7 @@ export default function Home() {
           id="gallery"
           className="section"
         >
-          <h2 className="sectionTitle">Gallery</h2>
+          <ScrollFloat textClassName="gallery-float-text">Gallery</ScrollFloat>
           <AnimatedGallery />
        </section>
 
@@ -122,7 +123,7 @@ export default function Home() {
 >
   <img src="/images/logo-nobg-resize.png" alt="OfficeGaana Logo" />
 </button>
-          <h2>About Office Gaana</h2>
+          <ScrollFloat textClassName="about-float-text">About Office Gaana</ScrollFloat>
           <p>
            Initially gaining traction through Instagram Reels, the office
            gaana guys are a bunch of friends who "seriously chill" and have
@@ -147,7 +148,7 @@ export default function Home() {
 
       {/* CONTACT SECTION */}
       <section ref={sectionRefs.contact} id="contact" className="page">
-        <h1>Get In Touch</h1>
+        <ScrollFloat containerClassName="contact-float" textClassName="contact-float-text">Get In Touch</ScrollFloat>
         <p>Have a question or want to collaborate? We'd love to hear from you!</p>
         <form className="contact-form">
           <input type="text" placeholder="Your Name" required />
@@ -246,7 +247,7 @@ function MusicSection({ sectionRef }) {
 
   return (
     <section ref={sectionRef} id="music" className="music">
-      <h2>Featured Videos</h2>
+      <ScrollFloat textClassName="music-float-text">Featured Videos</ScrollFloat>
       
       {loading ? (
         <div className="loading-container">

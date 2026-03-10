@@ -1738,3 +1738,27 @@ button {
   font-weight: 700;
   letter-spacing: 2px;
 }
+body.dg-scroll-lock { overflow: hidden; }
+
+/* Remove all dome blur & fade effects */
+.overlay,
+.overlay--blur {
+  display: none !important;
+}
+
+.edge-fade--top,
+.edge-fade--bottom {
+  display: none !important;
+}
+/* ScrollFloat color overrides per section */
+.hof-float-text    { color: #fff; }
+.concerts-float-text { color: #000; }
+.gallery-float-text  { color: #000; }
+.music-float-text    { color: #000; }
+.about-float-text    { color: #020202; }
+.contact-float-text  { color: #000; }
+
+/* Keep contact heading same size as original h1 */
+.contact-float .scroll-float-text {
+  font-size: clamp(36px, 6vw, 56px);
+}
