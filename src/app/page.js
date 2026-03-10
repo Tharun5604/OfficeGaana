@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faYoutube, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import AnimatedGallery from "@/components/AnimatedGallery.jsx";
+import HallOfFame from '@/components/HallOfFame';
 
 const currentYear = new Date().getFullYear();
 
@@ -70,6 +71,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* HALL OF FAME SECTION */}
+      <section ref={sectionRefs['hall of fame']} id="hall of fame" className="hall-of-fame">
+        <HallOfFame sectionRef={sectionRefs['hall-of-fame']} />
+      </section>
+
+      {/* CONCERTS SECTION */}
+      <section ref={sectionRefs.concerts} id="concerts" className="concerts">
+        <h2>Upcoming Concerts</h2>
+        <div className="subtitle">Tour Dates 2025</div>
+        <p className="cities">Multiple Cities</p>
+        <p>Join us for an unforgettable experience across major cities.</p>
+        <div className="email-signup">
+          <input type="email" placeholder="Enter your email for tour updates" />
+          <button>Notify Me</button>
+        </div>
+      </section>
+
       {/* CONCERTS SECTION */}
       <section ref={sectionRefs.concerts} id="concerts" className="concerts">
         <h2>Upcoming Concerts</h2>
@@ -99,12 +117,11 @@ export default function Home() {
       <section ref={sectionRefs.about} id="about" className="about">
         <div className="about-content">
           <button 
-          onClick={handleLogoClick} 
-          className="logo"
-          img src= '/images/logo-nobg-resize.png' alt="OfficeGaana Logo"
-        >
-          <img src="/images/logo-nobg-resize.png" alt="OfficeGaana Logo" />
-        </button>
+  onClick={handleLogoClick} 
+  className="logo"
+>
+  <img src="/images/logo-nobg-resize.png" alt="OfficeGaana Logo" />
+</button>
           <h2>About Office Gaana</h2>
           <p>
            Initially gaining traction through Instagram Reels, the office
